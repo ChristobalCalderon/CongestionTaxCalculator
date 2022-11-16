@@ -38,7 +38,7 @@ public class GetTollFee
                 dateTime.Date.Day)
             .ToList();
 
-        List<(DateTime, decimal)> feeOnDay = new();
+        List<decimal> feeOnDay = new();
 
         foreach (var day in groupedByDays)
         {
@@ -50,17 +50,18 @@ public class GetTollFee
 
             foreach (var hours in groupedByHour)
             {
-                fee += this.PriceService.GetPricePerHour(hours.Key, hours.ToArray());
+                fee += this.PriceService.GetPricePerHour(
+                    hours.Key, 
+                    hours.ToArray());
             }
 
             var maxFeePerDay = Math.Min(fee, MaxFeePerDay);
 
-            var date = day.First();
-
-            var whichDay = new DateTime(date.Year, date.Month, day.Key);
-            feeOnDay.Add((whichDay, maxFeePerDay));
+            feeOnDay.Add(maxFeePerDay);
         }
 
-        return new GetTollFeeOutput(feeOnDay, input.Notification);
+        return new GetTollFeeOutput(
+            feeOnDay.Sum(), 
+            input.Notification);
     }
 }

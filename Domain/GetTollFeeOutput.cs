@@ -1,3 +1,3 @@
 ﻿
 namespace CongestionTaxCalculator;
-public record GetTollFeeOutput(List<(DateTime, decimal)> Value, Notification Notification);
+public record GetTollFeeOutput(decimal TotalFee, Notification Notification);

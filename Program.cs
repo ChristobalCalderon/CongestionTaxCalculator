@@ -53,7 +53,7 @@ var output = useCase.Execute(input);
 /// Act if any notifications
 ///
 
-if(output != null && output.Notification.IsInvalid)
+if (output != null && output.Notification.IsInvalid)
 {
     foreach (var item in output.Notification.ModelState)
     {
@@ -66,7 +66,5 @@ if(output != null && output.Notification.IsInvalid)
 /// Print result
 ///
 
-foreach (var item in output.Value)
-{
-    Console.WriteLine($"Date; {item.Item1} Fee: {item.Item2}");
-}
+Console.WriteLine($"Total Fee: { output.TotalFee }");
+
